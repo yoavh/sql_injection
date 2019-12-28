@@ -3,8 +3,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="SQL" Version="*" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
+  <ItemGroup Condition = "'$(TargetFramework)' == 'netcoreapp3.1'">
+    <PackageReference Include="System.Data.SqlClient" Version="*"/>
   </ItemGroup>
 </Project>
