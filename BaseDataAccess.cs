@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Diagnostics;
 
 public class BaseDataAccess
 {
@@ -34,10 +33,10 @@ public class BaseDataAccess
         return command;
     }
 
-    protected SqlParameter GetParameter(string parameter, object value)
+    public SqlParameter GetParameter(string parameter, object value)
     {
         var parameterObject = new SqlParameter(parameter, value != null ? value : DBNull.Value);
-        parameterObject.Direction = ParameterDirection.Input;
+        // parameterObject.Direction = ParameterDirection.Input;
         return parameterObject;
     }
 
@@ -91,7 +90,6 @@ public class BaseDataAccess
         return returnValue;
     }
 
-
     public DataSet ExecuteCommand(string procedureName, CommandType commandType, IEnumerable<DbParameter> parameters)
     {
         var dataTable = new DataSet();
@@ -106,8 +104,10 @@ public class BaseDataAccess
                 }
 
                 var da = new SqlDataAdapter(cmd);
+
                 // this will query your database and return the result to your datatable
                 da.Fill(dataTable);
+                Console.WriteLine($"CommandText: {cmd.CommandText}");
 
                 return dataTable;
             }
